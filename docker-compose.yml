@@ -1,0 +1,55 @@
+version: "3.8"
+
+name: natours-server
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+        PORT: ${PORT}
+        DATABASE: ${DATABASE}
+        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+        JWT_SECRET: ${JWT_SECRET}
+        JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+        JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+        JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
+        PUBLIC_LINK_SECRET: ${PUBLIC_LINK_SECRET}
+        PUBLIC_LINK_EXPIRES_IN: ${PUBLIC_LINK_EXPIRES_IN}
+        API_URL: ${API_URL}
+        FRONTEND_URL: ${FRONTEND_URL}
+        EMAIL_HOST: ${EMAIL_HOST}
+        EMAIL_PORT: ${EMAIL_PORT}
+        EMAIL_SECURE: ${EMAIL_SECURE}
+        EMAIL_REQUIRE_TLS: ${EMAIL_REQUIRE_TLS}
+        EMAIL_TLS_REJECT_UNAUTHORIZED: ${EMAIL_TLS_REJECT_UNAUTHORIZED}
+        EMAIL_ADDRESS: ${EMAIL_ADDRESS}
+        EMAIL_FROM: ${EMAIL_FROM}
+        EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+        EMAIL_TO: ${EMAIL_TO}
+        COMPANY_NAME: ${COMPANY_NAME}
+        B2_APPLICATION_KEY_ID: ${B2_APPLICATION_KEY_ID}
+        B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+        B2_BUCKET_ID: ${B2_BUCKET_ID}
+        B2_BUCKET_NAME: ${B2_BUCKET_NAME}
+        B2_PUBLIC_BASE_URL: ${B2_PUBLIC_BASE_URL}
+        STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+        STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY}
+        STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+        STRIPE_CHECKOUT_SUCCESS_URL: ${STRIPE_CHECKOUT_SUCCESS_URL}
+        STRIPE_CHECKOUT_CANCEL_URL: ${STRIPE_CHECKOUT_CANCEL_URL}
+        STRIPE_CURRENCY: ${STRIPE_CURRENCY}
+    container_name: natours-server
+    ports:
+      - "4040:4040"
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - natours-network
+
+networks:
+  natours-network:
+    driver: bridge
